@@ -59,13 +59,13 @@ public class Permutations {
     public void extendPermutation(Set<String> remainingItems, Stack<String> permutationSoFar, List<List<String>> allPermutations){
         if (remainingItems.isEmpty() && allPermutations.size() <= 10000) {
             allPermutations.add(new ArrayList<>(permutationSoFar));
+            counter++;
             return;
         }
         for (String item : remainingItems) {
             Set<String> remainingItemsCopy = new HashSet<String>(remainingItems);
             remainingItemsCopy.remove(item);
             permutationSoFar.push(item);
-            counter++;
             extendPermutation(remainingItemsCopy, permutationSoFar, allPermutations);
             permutationSoFar.pop();
         }
