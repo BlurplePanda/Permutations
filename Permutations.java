@@ -57,9 +57,11 @@ public class Permutations {
      * So that you don't run out of memory, only add the first 10000 permutations to the allPermutations.
      */
     public void extendPermutation(Set<String> remainingItems, Stack<String> permutationSoFar, List<List<String>> allPermutations){
-        if (remainingItems.isEmpty() && allPermutations.size() <= 10000) {
-            allPermutations.add(new ArrayList<>(permutationSoFar));
+        if (remainingItems.isEmpty()) {
             counter++;
+            if (allPermutations.size() < 10000) {
+                allPermutations.add(new ArrayList<>(permutationSoFar));
+            }
             return;
         }
         for (String item : remainingItems) {
