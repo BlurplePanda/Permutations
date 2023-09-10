@@ -9,6 +9,8 @@
  */
 
 import ecs100.*;
+
+import java.sql.Array;
 import java.util.*;
 import java.awt.Color;
 
@@ -55,8 +57,18 @@ public class Permutations {
      * So that you don't run out of memory, only add the first 10000 permutations to the allPermutations.
      */
     public void extendPermutation(Set<String> remainingItems, Stack<String> permutationSoFar, List<List<String>> allPermutations){
-        /*# YOUR CODE HERE */
-
+        if (remainingItems.isEmpty() && allPermutations.size() <= 10000) {
+            allPermutations.add(new ArrayList<>(permutationSoFar));
+            return;
+        }
+        for (String item : remainingItems) {
+            Set<String> remainingItemsCopy = new HashSet<String>(remainingItems);
+            remainingItemsCopy.remove(item);
+            permutationSoFar.push(item);
+            counter++;
+            extendPermutation(remainingItemsCopy, permutationSoFar, allPermutations);
+            permutationSoFar.pop();
+        }
     }
 
     //===================================================
@@ -82,7 +94,7 @@ public class Permutations {
         }
         UI.println("----------------------");
         UI.printf("%d items:\n", permutations.get(0).size());
-        UI.printf("%,d permutations:\n", counter);
+        UI.printf("%,d permutations\n", counter);
         UI.println("----------------------");
     }
 
