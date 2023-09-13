@@ -41,20 +41,12 @@ public class Permutations {
     }
 
     /**
-     * Recursive method to build all permutations possible by adding the
-     *  remaining items on to the end of the permutation built up so far 
-     * If there are no remaining items, then permutationSoFar is complete,
-     *   => add a copy of the permutation to allPermutations.
-     * Otherwise,
-     *  for each of the remaining items,
-     *     extend the permutationSoFar with the item, and do a recursive call to extend it more:
-     *     - remove the item from remaining items and
-     *     - push it onto the permutation so far,
-     *     - do the recursive call,
-     *     - pop the item from the permutation so far and
-     *     - put it back into the remaining items.
-     *
-     * So that you don't run out of memory, only add the first 10000 permutations to the allPermutations.
+     * Builds all possible permutations recursively by adding the
+     * remaining items on to the end of the permutation built up so far
+     * and adding each completed permutation to the list of all permutations
+     * @param remainingItems all remaining user-entered items
+     * @param permutationSoFar the current permutation in its current state
+     * @param allPermutations all permutations found (up to 10000 to save memory)
      */
     public void extendPermutation(Set<String> remainingItems, Stack<String> permutationSoFar, List<List<String>> allPermutations){
         if (remainingItems.isEmpty()) {
@@ -65,7 +57,7 @@ public class Permutations {
             return;
         }
         for (String item : remainingItems) {
-            Set<String> remainingItemsCopy = new HashSet<String>(remainingItems);
+            Set<String> remainingItemsCopy = new HashSet<>(remainingItems);
             remainingItemsCopy.remove(item);
             permutationSoFar.push(item);
             extendPermutation(remainingItemsCopy, permutationSoFar, allPermutations);
